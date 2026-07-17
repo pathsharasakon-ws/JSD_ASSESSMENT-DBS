@@ -43,12 +43,20 @@
 
     <main class="container mx-auto p-4">
       <h1 class="text-4xl font-bold text-center my-12">Our Live Menu</h1>
-      <div
-        id="menu-container"
-        class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto"
-      >
-        <!-- Menu items will be loaded here -->
-      </div>
+
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold mb-6">From Supabase</h2>
+        <div id="supabase-menu-container" class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <p class="text-gray-500 col-span-3">Loading...</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-6">From MongoDB</h2>
+        <div id="mongodb-menu-container" class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <p class="text-gray-500 col-span-3">Loading...</p>
+        </div>
+      </section>
     </main>
 
     <footer class="bg-gray-800 text-white text-center py-4">
@@ -56,57 +64,40 @@
     </footer>
 
     <script>
-      // This script will fetch data from our backend and display it.
+      const SUPABASE_URL = "https://chrome-burger-db-server.onrender.com/api/menu-items";
+      const MONGODB_URL  = "https://chrome-burger-db-server.onrender.com/api/mongodb-menu-items";
 
-      // 1. The URL of our backend API
-      const apiUrl =
-        "https://chrome-burger-db-server.onrender.com/api/menu-items";
-
-      // 2. Use the fetch function to get the data
-      fetch(apiUrl)
-        .then((response) => {
-          // Check if the request was successful
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          // Convert the response to JSON
-          return response.json();
-        })
-        .then((menuItems) => {
-          // 3. Get the container where we will display the menu items
-          const menuContainer = document.getElementById("menu-container");
-
-          // 4. Loop through each menu item and create an HTML element for it
-          menuItems.forEach((item) => {
-            const menuItemElement = document.createElement("div");
-            menuItemElement.classList.add(
-              "menu-item",
-              "bg-yellow-400",
-              "rounded-lg",
-              "shadow-md",
-              "overflow-hidden",
-              "text-left"
-            );
-
-            menuItemElement.innerHTML = `
-                        <div class="p-4">
-                            <h4 class="text-2xl font-bold mb-2">${item.name}</h4>
-                            <p class="text-gray-800">${item.description}</p>
-                            <p class="text-gray-800 font-bold mt-2">$${item.price}</p>
-                        </div>
-                    `;
-
-            // 5. Add the new element to our container
-            menuContainer.appendChild(menuItemElement);
-          });
-        })
-        .catch((error) => {
-          // Log any errors to the console
-          console.error("There was a problem with the fetch operation:", error);
-          const menuContainer = document.getElementById("menu-container");
-          menuContainer.innerHTML =
-            "<p>Could not load menu. Make sure the backend server is running and the database connection is configured correctly.</p>";
+      function renderMenuItems(items, containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = "";
+        items.forEach((item) => {
+          const el = document.createElement("div");
+          el.classList.add("menu-item", "bg-yellow-400", "rounded-lg", "shadow-md", "overflow-hidden", "text-left");
+          el.innerHTML = `
+            <div class="p-4">
+              <h4 class="text-2xl font-bold mb-2">${item.name}</h4>
+              <p class="text-gray-800">${item.description}</p>
+              <p class="text-gray-800 font-bold mt-2">$${item.price}</p>
+            </div>
+          `;
+          container.appendChild(el);
         });
+      }
+
+      function showError(containerId, message) {
+        document.getElementById(containerId).innerHTML =
+          `<p class="text-red-600 col-span-3">${message}</p>`;
+      }
+
+      fetch(SUPABASE_URL)
+        .then((r) => { if (!r.ok) throw new Error("Supabase fetch failed"); return r.json(); })
+        .then((items) => renderMenuItems(items, "supabase-menu-container"))
+        .catch(() => showError("supabase-menu-container", "Could not load Supabase menu items."));
+
+      fetch(MONGODB_URL)
+        .then((r) => { if (!r.ok) throw new Error("MongoDB fetch failed"); return r.json(); })
+        .then((items) => renderMenuItems(items, "mongodb-menu-container"))
+        .catch(() => showError("mongodb-menu-container", "Could not load MongoDB menu items."));
     </script>
   </body>
 </html>
