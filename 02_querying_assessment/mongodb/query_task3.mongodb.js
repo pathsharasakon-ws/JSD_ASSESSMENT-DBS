@@ -10,6 +10,10 @@
 
 // ---------------------------------------------------------------
 // Your thinking process (required)
+//* ทำความเข้าใจจุดประสงค์ของคำสั่งว่าต้องการเรียกข้อมูลไปเพื่อใช้ทำอะไร
+//* ทำความเข้าใจเงื่อนไข ว่าต้องการให้แสดงผลแบบไหน
+//* เช็คฐานข้อมูลว่ามีการเก็บข้อมูลไว้แบบไหน nested รึเปล่า
+//* เขียน query เรียกข้อมูลจาก collection ingredients
 // ---------------------------------------------------------------
 // Before writing your query, explain in your own words how you
 // interpreted the task, what data you need, which collection(s)
@@ -18,3 +22,5 @@
 //
 // Your thinking:
 //
+use("chrome-burger-db");
+db.ingredients.find({stock_level: {$gte: 100}}); //มากกว่า หรือเท่ากับ 100

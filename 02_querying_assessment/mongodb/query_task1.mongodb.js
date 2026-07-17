@@ -10,6 +10,9 @@
 
 // ---------------------------------------------------------------
 // Your thinking process (required)
+//* ทำความเข้าใจจุดประสงค์ของคำสั่งว่าต้องการเรียกข้อมูลไปเพื่อใช้ทำอะไร
+//* ทำความเข้าใจเงื่อนไข: ให้แสดง เมนูที่มีราคา ต่ำว่า $10.00
+//* เขียน query เรียกข้อมูลจาก collection menu items
 // ---------------------------------------------------------------
 // Before writing your query, explain in your own words how you
 // interpreted the task, what data you need, which collection(s)
@@ -18,3 +21,6 @@
 //
 // Your thinking:
 //
+
+use("chrome-burger-db");
+db.menu_items.find({ price : {$lt: 10.00}});

@@ -11,6 +11,11 @@
 
 // ---------------------------------------------------------------
 // Your thinking process (required)
+//* ทำความเข้าใจจุดประสงค์ของคำสั่งว่าต้องการเรียกข้อมูลไปเพื่อใช้ทำอะไร
+//* ทำความเข้าใจเงื่อนไข ว่าต้องการให้แสดงผลแบบไหน
+//* เช็คฐานข้อมูลว่ามีการเก็บข้อมูลไว้แบบไหน nested รึเปล่า
+//* เขียน query เรียกข้อมูลจาก collection orders
+//* สร้างและจัดเก็บข้อมูลตามคำสั่ง
 // ---------------------------------------------------------------
 // Before writing your query, explain in your own words how you
 // interpreted the task, what data you need, which collection(s)
@@ -19,3 +24,14 @@
 //
 // Your thinking:
 //
+use("chrome-burger-db");
+db.orders.aggregate([ //ยุบรวมข้อมูลทุกตัวเข้าด้วยกัน เพื่อหาผลรวม
+    { $group: {
+        _id: null,                      //ใช้ null เพื่อรวบรวมข้อมูลจากทุก document เป็นก้อนเดียว
+        totalAmount: { $sum: { $multiply: ["$items.price", "$quantity"]}},   //หาผลรวมของ field ที่ชื่อ price (ราคา คูณกับ จำนวน)
+        totalCount: {$sum: 1}        //นับจำนวนรายการทั้งหมด
+    }},{
+        $out: "total_revenue"           //ให้สร้าง collection  ใหม่ชื่อ total_revenue แล้วบันทึกผลรวมลงไป
+    }
+]);
+db.total_revenue.find();                //เพื่อเช็คคำตอบใน document
