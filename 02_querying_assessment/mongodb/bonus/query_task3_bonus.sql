@@ -10,6 +10,9 @@
 
 -- ---------------------------------------------------------------
 -- Your thinking process (required)
+/*ทำความเข้าใจโจทย์ว่าต้องการให้แสดงข้อมูล ผลลัพธ์ อะไร*/
+/*อ่าน Hint เพื่อช่วยให้เข้าใจโจทย์มากขึ้น*/
+/*เขียน query*/
 -- ---------------------------------------------------------------
 -- Before writing your query, explain in your own words how you
 -- interpreted the task, what data you need, which table(s) are
@@ -18,3 +21,6 @@
 --
 -- Your thinking:
 --
+SELECT *                    /*เรียกดูข้อมูลทั้งหมด*/
+FROM Ingredients            /*จากตาราง Ingredients*/
+WHERE stock_level >= 100;   /*โดยมีเงื่อนไข stock_level มีค่ามากกว่า หรือเท่ากับ 100*/

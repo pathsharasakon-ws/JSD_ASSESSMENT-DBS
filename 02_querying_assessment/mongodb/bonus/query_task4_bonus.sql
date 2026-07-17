@@ -10,6 +10,10 @@
 
 -- ---------------------------------------------------------------
 -- Your thinking process (required)
+/*ทำความเข้าใจโจทย์ว่าต้องการให้แสดงข้อมูล ผลลัพธ์ อะไร*/
+/*อ่าน Hint เพื่อช่วยให้เข้าใจโจทย์มากขึ้น*/
+/*ต้องผลรวมของ orders แล้วตั้งชื่อเป็น total_revenue*/
+/*เขียน query*/
 -- ---------------------------------------------------------------
 -- Before writing your query, explain in your own words how you
 -- interpreted the task, what data you need, which table(s) are
@@ -18,3 +22,5 @@
 --
 -- Your thinking:
 --
+SELECT SUM(total_price) AS total_revenue  /*ใช้ aggregate function SUM เพื่อหาผลรวมของ total_price และตั้งชื่อผลลัพธ์เป็น total_revenue*/
+FROM Orders;                               /*จากตาราง Orders*/
