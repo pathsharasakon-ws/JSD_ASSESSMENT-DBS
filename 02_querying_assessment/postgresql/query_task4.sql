@@ -10,6 +10,8 @@
 
 -- ---------------------------------------------------------------
 -- Your thinking process (required)
+/* ทำความเข้าใจว่าโจทย์ต้องการให้ทำอะไร (อ่าน Hint เพื่อช่วยให้เข้าใจไวขึ้นด้วย)*/
+/* เขียน query*/
 -- ---------------------------------------------------------------
 -- Before writing your query, explain in your own words how you
 -- interpreted the task, what data you need, which table(s) are
@@ -18,3 +20,8 @@
 --
 -- Your thinking:
 --
+SELECT Ingredients.name                             /*เลือกดูข้อมูล name ของ Ingredients*/
+FROM Ingredients                                    /*จากตาราง Ingredients*/
+INNER JOIN Suppliers                                /*โดยให้ เชื่อมโยง nested กับตาราง Suppliers ด้วย*/
+ON Ingredients.supplier_id = Suppliers.supplier_id  /*ซึ่ง เกี่ยวพันกันใน คอลัมน์หัวข้อ supplier_id*/
+WHERE Suppliers.name = 'Freshest Farm Produce';     /*โดยให้แสดงผล เฉพาะ 'Freshest Farm Produce'*/

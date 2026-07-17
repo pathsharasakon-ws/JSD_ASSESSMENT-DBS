@@ -10,6 +10,8 @@
 
 -- ---------------------------------------------------------------
 -- Your thinking process (required)
+/* ทำความเข้าใจว่าโจทย์ต้องการให้ทำอะไร (อ่าน Hint เพื่อช่วยให้เข้าใจไวขึ้นด้วย)*/
+/* เขียน query*/
 -- ---------------------------------------------------------------
 -- Before writing your query, explain in your own words how you
 -- interpreted the task, what data you need, which table(s) are
@@ -18,3 +20,6 @@
 --
 -- Your thinking:
 --
+SELECT name, price              /* เลือกหัวข้อที่ต้องการให้แสดงผล */
+FROM MenuItems                  /* เลือกจากตาราง MenuItems */
+WHERE category = 'Side';        /* กรองเฉพาะรายการที่อยู่ในหมวดหมู่ 'Side' */
