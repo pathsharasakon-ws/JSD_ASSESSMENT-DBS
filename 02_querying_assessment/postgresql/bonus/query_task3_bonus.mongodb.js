@@ -12,6 +12,8 @@
 
 // ---------------------------------------------------------------
 // Your thinking process (required)
+//เข้าใจความต้องการของโจทย์ (อ่าน Hint จะช่วยได้มากเลยค่ะ)
+//โจทย์ต้องการให้ ใช้ aggregation query จาก collection ที่ชื่อ orders เพื่อแสดงผล แบบมีเงื่อนไข
 // ---------------------------------------------------------------
 // Before writing your query, explain in your own words how you
 // interpreted the task, what data you need, which collection(s)
@@ -20,3 +22,11 @@
 //
 // Your thinking:
 //
+use("chrome-burger-db");
+db.orders.aggregate([               /*ใช้การประมวลผล จาก orders */
+    { $group: {                     /*โดยการจัดกลุ่ม */
+        _id: "$staff",              /*โดยใช้ _id ของ staff เป็นเกณ์ */
+        total_orders: { $sum: 1 } } /*นับผลรวมของพนักงานที่มี order*/
+    },
+    { $sort: { total_orders: -1 } } /*ให้แสดงผล แบบเรียงลำดับจาก มากไปหา น้อย */
+]);

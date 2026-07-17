@@ -18,3 +18,6 @@
 //
 // Your thinking:
 //
+use("chrome-burger-db");
+db.staff.find({role: "Cook"}, {first_name: 1, last_name: 1, _id: 0}); 
+/*เรียกให้แสดงข้อมูล ของ "Cook" โดยให้แสดงผลเป็น ชื่อ และ นามสกุล เท่านั้น (ไม่เอา id)

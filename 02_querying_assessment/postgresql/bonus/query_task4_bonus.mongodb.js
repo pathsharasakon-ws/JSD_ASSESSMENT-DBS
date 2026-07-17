@@ -20,3 +20,19 @@
 //
 // Your thinking:
 //
+use("chrome-burger-db");
+db.ingredients.aggregate([          //ดึงข้อมูล supplier ที่ตรงกัน เข้ามาใส่ใน supplier_info
+    {$lookup: {
+      from: "suppliers",            //เชื่อมไปยัง collection suppliers
+      localField: "supplier_id",    //เลือกหัวข้อใน ingredients ที่ต้องการเชื่อม
+      foreignField: "_id",          //เลือกหัวข้อใน suppliers ที่ต้องการเชื่อม
+      as: "supplier_info"}          //ชื่อฟิลด์ใหม่ที่รวบรวมข้อมูลที่เชื่อมมา
+    },{
+        $match : {
+            "supplier_info.name": "Freshest Farm Produce"} //กรองเอาเฉพาะข้อมูลที่ต้องการ
+        },{
+            $project: {                 //เลือกให้แสดงผลตามที่ต้องการ
+            _id: 0,                     //ไม่ให้แสดง _id
+            ingredient : "$name" }      //ให้แสดง name ของ ingredient เท่านั้น
+        }
+]);

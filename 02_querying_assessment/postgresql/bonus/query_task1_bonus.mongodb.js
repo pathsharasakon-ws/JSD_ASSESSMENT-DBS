@@ -18,3 +18,5 @@
 //
 // Your thinking:
 //
+use("chrome-burger-db");
+db.menu_items.find({category: "Side"}, {price: 1}); /*เรียกให้แสดงข้อมูล category "Side" และราคา
